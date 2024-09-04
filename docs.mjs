@@ -31,12 +31,28 @@ const docs = {
 
     addOne: async function addOne(body) {
         let db = await openDb();
-
         try {
             return await db.run(
                 'INSERT INTO documents (title, content) VALUES (?, ?)',
                 body.title,
                 body.content,
+            );
+        } catch (e) {
+            console.error(e);
+        } finally {
+            await db.close();
+        }
+    },
+
+    updateOne: async function updateOne(body) {
+        let db = await openDb();
+
+        try {
+            return await db.run(
+                'UPDATE documents SET content = ?, title = ? WHERE rowid = ?',
+                body.content,
+                body.title,
+                body.id
             );
         } catch (e) {
             console.error(e);
