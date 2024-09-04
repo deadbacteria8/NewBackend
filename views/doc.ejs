@@ -1,5 +1,6 @@
 <%- include('includes/header'); %>
 
+<% if (doc) { %>
     <h2>Dokument</h2>
     <form method="POST" action="/update/<%= doc.id %>" class="new-doc">
         <label for="title">Titel</label>
