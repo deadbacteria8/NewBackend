@@ -2,7 +2,7 @@
 
 Starter project for DV1677 JSRamverk
 
-##
+## Ändringar 
 Vi fick lägga till en .env fil, initiera databasen, göra det möjligt för användaren att uppdatera dokument, skapa en POST route istället för PUT(eftersom det inte finns en PUT method i HTML forms, skapa create route.
 
 ## Val av ramverk
