@@ -54,6 +54,12 @@ main {
     flex-direction: column;
 }
 
+.new-doc-v2 {
+    display: flex;
+    flex-direction: row;
+
+}
+
 input,
 textarea {
     margin-bottom: 1.4rem;

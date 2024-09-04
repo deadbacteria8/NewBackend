@@ -16,7 +16,6 @@ router.get('/:id', async (req, res) => {
     );
 });
 
-
 router.put('/', async (req, res) => {
     const result = await documents.updateOne(req.body);
     return res.redirect(`/${req.body.id}`);
