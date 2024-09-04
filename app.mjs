@@ -15,6 +15,8 @@ import docRouter from "./documentsRouter.mjs";
 
 const app = express();
 
+app.use(express.static(path.join(process.cwd(), "public")));
+
 app.disable('x-powered-by');
 
 app.set("view engine", "ejs");
