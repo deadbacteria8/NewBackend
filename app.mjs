@@ -8,7 +8,7 @@ import path from 'path';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import documents from "./docs.mjs";
+import docRouter from "./documentsRouter.mjs";
 
 const app = express();
 
@@ -26,24 +26,8 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.post("/", async (req, res) => {
-    const result = await documents.addOne(req.body);
-
-    return res.redirect(`/${result.lastID}`);
-});
-
-app.get('/:id', async (req, res) => {
-    return res.render(
-        "doc",
-        { doc: await documents.getOne(req.params.id) }
-    );
-});
-
-app.get('/', async (req, res) => {
-    return res.render("index", { docs: await documents.getAll() });
-});
+app.use('/', docRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port ${port}`)
 });
