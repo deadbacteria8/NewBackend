@@ -8,15 +8,16 @@ import path from 'path';
 import morgan from 'morgan';
 import cors from 'cors';
 
+
+
 import docRouter from "./documentsRouter.mjs";
+
 
 const app = express();
 
 app.disable('x-powered-by');
 
 app.set("view engine", "ejs");
-
-app.use(express.static(path.join(process.cwd(), "public")));
 
 // don't show the log when it is test
 if (process.env.NODE_ENV !== 'test') {
