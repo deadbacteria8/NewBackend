@@ -6,7 +6,6 @@ import docModule from "../Infrastructure/docModule.mjs";
 import { startServer, closeServer } from "../app.mjs";
 import app from '../app.mjs';
 import DocModule from "../Infrastructure/docModule.mjs";
-import MongoDocumentHelper from "../Infrastructure/mongoDocumentHelper.mjs";
 const chai = use(chaiHttp);
 
 describe('intergration test', () => {
@@ -28,7 +27,7 @@ describe('intergration test', () => {
                 id = undefined;
             }
         });
-        it('should create a new user on POST /users', (done) => {
+        it('should create a new document on POST /document', (done) => {
             const title = "hej";
             const content = "inget";
             chai.request.execute(app)
@@ -44,7 +43,7 @@ describe('intergration test', () => {
                 });
         });
 
-        it('should not create a new user on POST /users', (done) => {
+        it('should not create a new document', (done) => {
             const title = "hej";
             const content = "inget";
             chai.request.execute(app)
@@ -93,7 +92,6 @@ describe('intergration test', () => {
                         expect(document.content).to.equal(content2);
                         done();
                     })();
-
                 })
         })
 
