@@ -2,10 +2,10 @@
 import { use, expect } from "chai";
 import 'dotenv/config';
 import chaiHttp from "chai-http";
-import docModule from "../Infrastructure/docModule.mjs";
+import docModule from "../Infrastructure/Documents/docModule.mjs";
 import { startServer, closeServer } from "../app.mjs";
 import app from '../app.mjs';
-import DocModule from "../Infrastructure/docModule.mjs";
+import DocModule from "../Infrastructure/Documents/docModule.mjs";
 const chai = use(chaiHttp);
 
 describe('intergration test', () => {
