@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 const corsOptions = {
     origin: process.env.frontendAddress || 'http://localhost:5173',
-    methods: 'GET,POST,PUT',
+    methods: 'GET,POST,PUT,OPTIONS',
     allowedHeaders: ['Content-Type', 'token']
 };
 
