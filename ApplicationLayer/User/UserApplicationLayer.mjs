@@ -11,5 +11,9 @@ export default {
     userHasAccessToDocument : async (id, documentId) => {
         const user = await userQueries.findUserWithId(id);
         return user.documents.includes(documentId);
+    },
+
+    findUserByEmail : async (email) => {
+        return await userQueries.findUserByEmail(email);
     }
 }

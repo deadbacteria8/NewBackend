@@ -16,7 +16,6 @@ const mutation = new GraphQLObjectType({
         createDocument: createDocument,
         updateDocument: updateDocument,
         addUsers: addUsers,
-
     }
 });
 

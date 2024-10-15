@@ -1,12 +1,7 @@
 import docs from "../../Infrastructure/Documents/docs.mjs";
-import objectHelper from "../objectHelper.mjs";
+
 import userApplicationLayer from "../User/UserApplicationLayer.mjs";
-import {createDocument} from "../../ControllerLayer/Documents/DocumentGraphQL.mjs";
-import {doc} from "mocha/lib/reporters/index.js";
 const document = {
-    getAllDocuments: async function() {
-        return await docs.getAll();
-    },
 
     getDocumentById: async function(id) {
         return await docs.getOne(id);

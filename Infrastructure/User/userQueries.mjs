@@ -11,7 +11,7 @@ export default {
         const newDocument = new userModule({
             email: email,
             password: password,
-            documents: []
+            documents: documents
         });
         await newDocument.save();
     },
