@@ -1,4 +1,4 @@
-import userQueries from "../../Infrastructure/User/userQueries.mjs";
+    import userQueries from "../../Infrastructure/User/userQueries.mjs";
 
 export default {
     usersWithinDocument : async (documentId) => {

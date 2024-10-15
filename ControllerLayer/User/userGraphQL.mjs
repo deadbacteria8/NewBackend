@@ -19,9 +19,8 @@ const UserType = new GraphQLObjectType({
 
 const userQuery =  {
     type: UserType,
-    args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    resolve: (parent, args) => {
-        return userApplicationLayer.findUser(args.id);
+    resolve: (parent, args, context) => {
+        return userApplicationLayer.findUser(context.user);
     },
 }
 

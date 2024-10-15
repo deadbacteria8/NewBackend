@@ -27,8 +27,8 @@ const DocumentType = new GraphQLObjectType({
 const documentQuery = {
     type: DocumentType,
     args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    resolve: (parent, args) => {
-        return document.getDocumentById(args.id);
+    resolve: (parent, args, context) => {
+        return document.getDocumentById(args.id, context.user);
     },};
 
 const createDocument = {
@@ -63,7 +63,8 @@ const updateDocument = {
     async resolve(parent, args, context) {
         const doc = await document.updateDocument(context.user, args.document, args.content);
         pubsub.publish(args.document, doc.content);
-        return doc;}
+        return doc;
+    }
 };
 
 const contentSubscription = {

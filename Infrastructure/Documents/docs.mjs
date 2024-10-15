@@ -4,9 +4,6 @@ import userModule from "../User/userModule.mjs";
 import MongoDocumentHelper from "../mongoDocumentHelper.mjs";
 import mongoose from "mongoose";
 const docs = {
-    getAll: async () => {
-        return await DocModule.find();
-    },
 
     getOne: async (id) => {
         return await DocModule.findById(id);
@@ -24,7 +21,6 @@ const docs = {
             return document;
         } catch (error) {
             console.log(error.message);
-            console.log("HELLOOOOO");
             await session.abortTransaction();
             throw new Error("Could not create document");
         } finally {

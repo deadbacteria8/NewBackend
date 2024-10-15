@@ -30,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/user', userLogin);
 app.use((err, req, res, next) => {
     const errorCode = err.statusCode || 500;
-    console.log("fdafdadfaffdasfdsafdsa");
     console.log(err.message);
     res.status(errorCode).send('Error');
 });

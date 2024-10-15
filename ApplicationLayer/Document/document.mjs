@@ -3,16 +3,24 @@ import docs from "../../Infrastructure/Documents/docs.mjs";
 import userApplicationLayer from "../User/UserApplicationLayer.mjs";
 const document = {
 
-    getDocumentById: async function(id) {
+    getDocumentById: async function(id, userId) {
+        const user = await userApplicationLayer.findUser(userId);
+        document.authorize(user, id);
+        console.log(id);
+        console.log(await docs.getOne(id));
         return await docs.getOne(id);
     },
 
-
-    updateDocument: async (userId, docId, content) => {
-        const user = userApplicationLayer.findUser(userId);
-        if(!(user.documents.includes(docId))) {
+    authorize: (user, id) => {
+        if(!(user.documents.includes(id))) {
             throw new Error("Not authorized");
         }
+
+    },
+
+    updateDocument: async (userId, docId, content) => {
+        const user = await userApplicationLayer.findUser(userId);
+        document.authorize(user, docId);
         return await docs.updateContent(docId, content);
     },
 
