@@ -17,9 +17,9 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('combined'));
 }
 const corsOptions = {
-    origin: process.env.frontendAddress || 'http://localhost:5173',
+    origin: 'http://localhost:5173',
     methods: 'GET,POST,PUT,OPTIONS',
-    allowedHeaders: ['Content-Type', 'token']
+    allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 
