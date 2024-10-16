@@ -10,6 +10,7 @@ router.post("/signup", async (req, res) => {
 
 router.post("/signin", async (req, res) => {
     const token = await userAuth.signIn(req.body.email, req.body.password);
+    console.log("fdsfadsdfaffad");
     res.status(httpOk).json({ token: token });
 });
 
