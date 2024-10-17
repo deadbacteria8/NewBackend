@@ -1,5 +1,5 @@
 import {userQuery} from "./User/userGraphQL.mjs";
-import {documentQuery, createDocument, contentSubscription, addUsers,updateDocument} from "./Documents/DocumentGraphQL.mjs";
+import {documentQuery, createDocument, contentSubscription, inviteUsers,updateDocument} from "./Documents/DocumentGraphQL.mjs";
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 
 const RootQuery = new GraphQLObjectType({
@@ -15,7 +15,7 @@ const mutation = new GraphQLObjectType({
     fields: {
         createDocument: createDocument,
         updateDocument: updateDocument,
-        addUsers: addUsers,
+        inviteUsers: inviteUsers,
     }
 });
 

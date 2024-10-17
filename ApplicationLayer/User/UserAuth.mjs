@@ -1,5 +1,6 @@
 import userQueries from "../../Infrastructure/User/userQueries.mjs";
 import jwtToken from "../Token/jwtToken.mjs";
+import signinToken from "../Token/signInToken.mjs";
 import bcrypt from "bcrypt";
 export default {
     signUp: async (email, password) => {
@@ -11,10 +12,10 @@ export default {
         const user = await userQueries.findUserWithEmail(email);
         if (!user) throw new Error('User does not exist');
         if(!(await bcrypt.compare(password, user.password))) throw new Error("Password doesnt match");
-        return jwtToken.create({id: user._id});
+        return signinToken.createNewSignInToken(user);
     },
 
     authenticateToken: (token) => {
-        return jwtToken.verify(token);
+        return signinToken.verifySignInToken(token);
     }
 }

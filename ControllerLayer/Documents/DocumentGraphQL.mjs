@@ -42,15 +42,15 @@ const createDocument = {
     }
 };
 
-const addUsers = {
-    type: DocumentType,
+const inviteUsers = {
+    type: new GraphQLNonNull(GraphQLString),
     args: {
         users: { type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLString))) },
         documentId: {type : new GraphQLNonNull(GraphQLString)}
     },
     async resolve(parent, args, context) {
         // Create a new document in the database
-        return await document.addUsersToDocument(args.users, context.user,args.documentId);
+        return await document.inviteUsersToDocument(args.users, context.user,args.documentId);
     }
 };
 
@@ -79,5 +79,5 @@ const contentSubscription = {
     }
 };
 
-export {DocumentType, documentQuery, createDocument, addUsers, updateDocument, contentSubscription};
+export {DocumentType, documentQuery, createDocument, inviteUsers, updateDocument, contentSubscription};
 

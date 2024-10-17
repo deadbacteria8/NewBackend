@@ -14,6 +14,6 @@ export default {
     },
 
     findUserByEmail : async (email) => {
-        return await userQueries.findUserByEmail(email);
+        return await userQueries.findUserWithEmail(email);
     }
 }
