@@ -12,14 +12,16 @@ import authMiddleware from "./ControllerLayer/authMiddleware.mjs";
 import {graphqlHTTP} from "express-graphql";
 const app = express();
 import cors from 'cors';
+import GetFrontendUrl from "./ApplicationLayer/GetFrontendUrl.mjs";
+import documentRest from "./ControllerLayer/Documents/DocumentRest.mjs";
 app.disable('x-powered-by');
 if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('combined'));
 }
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: GetFrontendUrl(),
     methods: 'GET,POST,PUT,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Invite-token'],
 };
 
 
@@ -28,6 +30,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/user', userLogin);
+app.use('/document', documentRest);
 app.use((err, req, res, next) => {
     const errorCode = err.statusCode || 500;
     console.log(err.message);

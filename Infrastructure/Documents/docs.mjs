@@ -1,7 +1,5 @@
 
 import DocModule from "./docModule.mjs";
-import userModule from "../User/userModule.mjs";
-import MongoDocumentHelper from "../mongoDocumentHelper.mjs";
 import mongoose from "mongoose";
 const docs = {
 
@@ -39,18 +37,12 @@ const docs = {
     },
 
 
-    saveDocAndUsersSimultaneously: async (doc,users) => {
+    saveDocAndUserSimultaneously: async (doc,user) => {
         const session = await mongoose.startSession();
-        const promises = users.map((user) => {
-            return new Promise(async (resolve) => {
-                await user.save();
-                resolve();
-            })
-        })
         try {
             session.startTransaction();
             await session.commitTransaction();
-            await promises;
+            await user.save();
             await doc.save();
             return doc;
         } catch {
@@ -66,10 +58,6 @@ const docs = {
         return await DocModule.find({ users: _id });
     },
 
-    updateDocumentWithDocumentInput: async (mongoDocument) => {
-        await mongoDocument.save();
-        return mongoDocument;
-    }
 };
 
 export default docs;
