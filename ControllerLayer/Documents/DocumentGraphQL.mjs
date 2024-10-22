@@ -57,12 +57,13 @@ const inviteUsers = {
 const updateDocument = {
     type: DocumentType,
     args: {
-        content: {type : new GraphQLNonNull(GraphQLString)},
-        document: {type : new GraphQLNonNull(GraphQLString)}
+        content: { type: new GraphQLNonNull(GraphQLString) },
+        title: { type: new GraphQLNonNull(GraphQLString) }, // added title
+        document: { type: new GraphQLNonNull(GraphQLString) }
     },
     async resolve(parent, args, context) {
-        const doc = await document.updateDocument(context.user, args.document, args.content);
-        pubsub.publish(args.document, doc.content);
+        const doc = await document.updateDocument(context.user, args.document, args.title, args.content);
+        pubsub.publish(args.document, doc.content, doc.title);
         return doc;
     }
 };

@@ -19,10 +19,10 @@ const document = {
         }
 
     },
-    updateDocument: async (userId, docId, content) => {
+    updateDocument: async (userId, docId, content, title) => {
         const user = await userApplicationLayer.findUser(userId);
         document.authorize(user, docId);
-        return await docs.updateContent(docId, content);
+        return await docs.updateContent(docId, content, title);
     },
     usersDocuments: async (user) => {
         return await docs.findDocumentsAssociatedWithUser(user);
