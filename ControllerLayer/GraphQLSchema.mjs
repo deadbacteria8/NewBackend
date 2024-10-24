@@ -1,6 +1,7 @@
 import {userQuery} from "./User/userGraphQL.mjs";
 import {documentQuery, createDocument, contentSubscription, inviteUsers,updateDocument} from "./Documents/DocumentGraphQL.mjs";
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
+import {insertComment} from "./Comments/CommentsGraphQL.mjs";
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -16,6 +17,7 @@ const mutation = new GraphQLObjectType({
         createDocument: createDocument,
         updateDocument: updateDocument,
         inviteUsers: inviteUsers,
+        insertComment: insertComment,
     }
 });
 
