@@ -14,10 +14,12 @@ const document = {
         return await docs.getOne(id);
     },
 
-    updateDocument: async (userId, docId, content) => {
+
+    },
+    updateDocument: async (userId, docId, content, title) => {
         const user = await userApplicationLayer.findUser(userId);
         if(!(documentRules.userHasAccessToDocument(user, docId))) throw new Error("No Access");
-        return await docs.updateContent(docId, content);
+        return await docs.updateContent(docId, content, title);
     },
 
     usersDocuments: async (user) => {

@@ -27,11 +27,12 @@ const docs = {
     },
 
 
-    updateContent: async (id, content) => {
+    updateContent: async (id, content, title) => {
         const doc = await DocModule.findById(id);
         //The object parameter can potentially have multiple keys. We dont know the key(s) that exist in the object.
         //therefore we need to update the mongo-document accordingly, only updating the key(s) that is provided in the object
         doc.content = content;
+        doc.title = title;
         await doc.save();
         return doc;
     },
