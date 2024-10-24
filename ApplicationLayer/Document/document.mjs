@@ -9,13 +9,12 @@ const document = {
 
     getDocumentById: async function(id, userId) {
         const user = await userApplicationLayer.findUser(userId);
-        if(!(documentRules.userHasAccessToDocument(user, docId))) throw new Error("No Access");
+        if(!(documentRules.userHasAccessToDocument(user, id))) throw new Error("No Access");
         console.log(await docs.getOne(id));
         return await docs.getOne(id);
     },
 
 
-    },
     updateDocument: async (userId, docId, content, title) => {
         const user = await userApplicationLayer.findUser(userId);
         if(!(documentRules.userHasAccessToDocument(user, docId))) throw new Error("No Access");
@@ -68,7 +67,7 @@ const document = {
 
     subscribe: async (documentId, userId) => {
         const user = await userApplicationLayer.findUser(userId);
-        if(!(documentRules.userHasAccessToDocument(user, docId))) throw new Error("No Access");
+        if(!(documentRules.userHasAccessToDocument(user, documentId))) throw new Error("No Access");
     }
 };
 

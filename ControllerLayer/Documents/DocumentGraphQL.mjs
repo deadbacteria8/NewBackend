@@ -3,8 +3,14 @@ import userApplicationLayer from "../../ApplicationLayer/User/UserApplicationLay
 import document from "../../ApplicationLayer/Document/document.mjs";
 import {UserType} from "../User/userGraphQL.mjs";
 import { PubSub } from "graphql-subscriptions";
+import {CommentType} from "../Comments/CommentsGraphQL.mjs";
+import comments from "../../ApplicationLayer/Comments/comments.mjs";
 
 const pubsub = new PubSub();
+
+
+
+
 
 
 const DocumentType = new GraphQLObjectType({
@@ -17,10 +23,18 @@ const DocumentType = new GraphQLObjectType({
             type: new GraphQLList(UserType),
             async resolve(parent, args) {
                 return await userApplicationLayer.usersWithinDocument(parent.id);
+            },
+        },
+        comments: {
+            type: new GraphQLList(CommentType),
+            async resolve(parent, args) {
+                return await comments.commentsWithinDocument(parent.id);
             }
         }
     })
 });
+
+
 
 
 
