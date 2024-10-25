@@ -5,7 +5,7 @@ export default {
         return await bcrypt.hash(password, 10);
     },
 
-    verifyPassword: async (encrypted, notEncrypted) => {
+    verifyPassword: async (notEncrypted, encrypted) => {
         return await bcrypt.compare(notEncrypted, encrypted)
     }
 }

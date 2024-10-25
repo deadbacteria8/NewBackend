@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString} from "graphql";
+import {GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
 import comments from "../../ApplicationLayer/Comments/comments.mjs";
 
 const CommentType = new GraphQLObjectType({
@@ -11,6 +11,7 @@ const CommentType = new GraphQLObjectType({
 });
 
 const insertComment = new GraphQLObjectType({
+    name:'insertComment',
     type: CommentType,
     args: {
         documentId: {type : new GraphQLNonNull(GraphQLString)},
