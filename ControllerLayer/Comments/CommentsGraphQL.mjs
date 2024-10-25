@@ -10,7 +10,7 @@ const CommentType = new GraphQLObjectType({
     })
 });
 
-const insertComment = new GraphQLObjectType({
+const insertComment = {
     name:'insertComment',
     type: CommentType,
     args: {
@@ -21,8 +21,7 @@ const insertComment = new GraphQLObjectType({
     async resolve(parent, args, context) {
         return await comments.insertComment(args.documentId, context.user, args.comment, args.line);
     }
-
-})
+}
 
 
 export {CommentType, insertComment};
