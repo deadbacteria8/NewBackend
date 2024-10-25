@@ -1,5 +1,5 @@
 export default {
     passwordRequirements(password) {
-        return (password.length < 6);
+        return (password.length > 6);
     }
 }
