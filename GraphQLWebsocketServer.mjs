@@ -7,6 +7,6 @@ export default (server) => {
         server,
         path: '/query'
     });
-    useServer({graphQLSchema }, ws);
+    useServer({ schema: graphQLSchema }, ws);
 }
 
