@@ -7,7 +7,7 @@ const CommentType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         comment: { type: GraphQLString },
-        line: { type: GraphQLInt }
+        line: { type: GraphQLString }
     })
 });
 
@@ -17,7 +17,7 @@ const insertComment = {
     args: {
         documentId: {type : new GraphQLNonNull(GraphQLString)},
         comment: { type: GraphQLString },
-        line: { type: GraphQLInt }
+        line: { type: GraphQLString }
     },
     async resolve(parent, args, context) {
         return await comments.insertComment(args.documentId, context.user, args.comment, args.line);

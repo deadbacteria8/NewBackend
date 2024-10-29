@@ -34,6 +34,14 @@ const DocumentType = new GraphQLObjectType({
     })
 });
 
+const SubscriptionType = new GraphQLObjectType({
+    name: 'SubscriptionType',
+    fields: () => ({
+        Document: { type:  new GraphQLNonNull(DocumentType) },
+        userIdMakingChange: { type: new GraphQLNonNull(GraphQLString) }
+    })
+});
+
 
 
 
@@ -51,7 +59,6 @@ const createDocument = {
         title: { type: new GraphQLNonNull(GraphQLString) },
     },
     async resolve(parent, args, context) {
-        // Create a new document in the database
         return await document.createDocument(args.title, context.user);
     }
 };
@@ -63,27 +70,44 @@ const inviteUsers = {
         documentId: {type : new GraphQLNonNull(GraphQLString)}
     },
     async resolve(parent, args, context) {
-        // Create a new document in the database
         return await document.inviteUsersToDocument(args.users, context.user,args.documentId);
     }
 };
+
+
 
 const updateDocument = {
     type: DocumentType,
     args: {
         content: { type: new GraphQLNonNull(GraphQLString) },
-        title: { type: new GraphQLNonNull(GraphQLString) }, // added title
+        title: { type: new GraphQLNonNull(GraphQLString) },
         document: { type: new GraphQLNonNull(GraphQLString) }
     },
     async resolve(parent, args, context) {
-        const doc = await document.updateDocument(context.user, args.document, args.title, args.content);
-        pubsub.publish(args.document, doc.content, doc.title);
-        return doc;
+        try {
+            const doc = await document.updateDocument(context.user, args.document, args.title, args.content);
+            const comments = await comments.commentsWithinDocument(args.document);
+            pubsub.publish(args.document, {
+                contentSubscription: {
+                    Document: {
+                        id: doc.id,
+                        title: doc.title,
+                        content: doc.content,
+                        comments: comments
+                    },
+                    userIdMakingChange: context.user
+                }
+            });
+            return doc;
+        } catch (error) {
+            console.error("Error updating document:", error);
+            throw new Error("Failed to update document");
+        }
     }
 };
 
 const contentSubscription = {
-    type: DocumentType,
+    type: SubscriptionType,
     args: {
         documentId: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) }
