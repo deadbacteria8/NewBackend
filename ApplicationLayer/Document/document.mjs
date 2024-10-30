@@ -10,7 +10,6 @@ const document = {
     getDocumentById: async function(id, userId) {
         const user = await userApplicationLayer.findUser(userId);
         if(!(documentRules.userHasAccessToDocument(user, id))) throw new Error("No Access");
-        console.log(await docs.getOne(id));
         return await docs.getOne(id);
     },
 
@@ -27,7 +26,7 @@ const document = {
 
     addUserToDocument: (user, document) => {
         if(!(documentRules.userCanBeAddedToDocument(document, user._id))) {
-            throw new Error("User");
+            throw new Error("User cant be added to Document");
         }
         document.users.push(user._id);
         user.documents.push(document);
@@ -54,13 +53,14 @@ const document = {
         return "Invites Sent";
     },
 
-    createDocument: async (title, userId) => {
+    createDocument: async (title, codeMode, userId) => {
        const user = await userApplicationLayer.findUser(userId);
        if(!(documentRules.userCanCreateDocument(user))) throw new Error("Cannot create Document");
         const newDocument = {
             title: title,
             users: [userId],
             content: '',
+            codeMode: codeMode,
         };
         return await docs.addOne(newDocument, user);
     },

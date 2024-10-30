@@ -1,4 +1,12 @@
-import {GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLInt} from "graphql";
+import {
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLID,
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLInt,
+    GraphQLBoolean
+} from "graphql";
 import userApplicationLayer from "../../ApplicationLayer/User/UserApplicationLayer.mjs";
 import document from "../../ApplicationLayer/Document/document.mjs";
 import {UserType} from "../User/userGraphQL.mjs";
@@ -10,15 +18,13 @@ const pubsub = new PubSub();
 
 
 
-
-
-
 const DocumentType = new GraphQLObjectType({
     name: 'Document',
     fields: () => ({
         id: { type: GraphQLID },
         content: { type: GraphQLString },
         title: { type: GraphQLString },
+        code: {type: GraphQLBoolean },
         users: {
             type: new GraphQLList(UserType),
             async resolve(parent, args) {
@@ -57,9 +63,10 @@ const createDocument = {
     type: DocumentType,
     args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
+        code:  {type: GraphQLBoolean }
     },
     async resolve(parent, args, context) {
-        return await document.createDocument(args.title, context.user);
+        return await document.createDocument(args.title, args.code, context.user);
     }
 };
 

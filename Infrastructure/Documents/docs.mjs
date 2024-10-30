@@ -8,7 +8,7 @@ const docs = {
     },
 
     addOne: async (docOb,user) => {
-        const document = new DocModule({ title: docOb.title, content:docOb.content, users: docOb.users });
+        const document = new DocModule({ title: docOb.title, content:docOb.content, users: docOb.users, codeMode: docOb.code });
         user.documents.push(document._id);
         const session = await mongoose.startSession();
         try {
@@ -58,7 +58,6 @@ const docs = {
         const _id = new mongoose.Types.ObjectId(user);
         return await DocModule.find({ users: _id });
     },
-
 };
 
 export default docs;
