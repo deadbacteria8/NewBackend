@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLInt} from "graphql";
+import {GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLBoolean} from "graphql";
 import userApplicationLayer from "../../ApplicationLayer/User/UserApplicationLayer.mjs";
 import document from "../../ApplicationLayer/Document/document.mjs";
 import {UserType} from "../User/userGraphQL.mjs";
@@ -30,7 +30,8 @@ const DocumentType = new GraphQLObjectType({
             async resolve(parent, args) {
                 return await comments.commentsWithinDocument(parent.id);
             }
-        }
+        },
+        code: { type: GraphQLBoolean }
     })
 });
 
@@ -57,6 +58,7 @@ const createDocument = {
     type: DocumentType,
     args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
+        code: { type: new GraphQLNonNull(GraphQLBoolean) }
     },
     async resolve(parent, args, context) {
         return await document.createDocument(args.title, context.user);
@@ -86,14 +88,14 @@ const updateDocument = {
     async resolve(parent, args, context) {
         try {
             const doc = await document.updateDocument(context.user, args.document, args.title, args.content);
-            const comments = await comments.commentsWithinDocument(args.document);
+            const comments2 = await comments.commentsWithinDocument(args.document);
             pubsub.publish(args.document, {
                 contentSubscription: {
                     Document: {
                         id: doc.id,
                         title: doc.title,
                         content: doc.content,
-                        comments: comments
+                        comments: comments2
                     },
                     userIdMakingChange: context.user
                 }
