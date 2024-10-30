@@ -4,7 +4,7 @@
   "description": "Starter project for DV1677 JSRamverk",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/BuisenessRules.mjs --timeout 1000ms"
+    "test": "mocha test/*.mjs --timeout 1000ms"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "mongodb": "^6.9.0",
     "mongoose": "^8.6.3",
     "morgan": "^1.10.0",
+    "sinon": "^19.0.2",
     "ws": "^8.18.0"
   },
   "devDependencies": {

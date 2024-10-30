@@ -19,7 +19,7 @@ describe('updateDocument Function Tests', () => {
             sinon.stub(docs, 'getOne').resolves();
             let error;
             try {
-                await document.getDocumentById('', '');
+                await document.getDocumentById();
             } catch (err) {
                 error = err
             }
@@ -35,7 +35,7 @@ describe('updateDocument Function Tests', () => {
 
             let error;
             try {
-                await document.getDocumentById('','');
+                await document.getDocumentById();
             } catch (err) {
                 error = err;
             }
@@ -51,7 +51,7 @@ describe('updateDocument Function Tests', () => {
             sinon.stub(docs, 'updateContent').resolves();
             let error;
             try {
-                await document.updateDocument('','','','');
+                await document.updateDocument();
             } catch (err) {
                 error = err;
             }
@@ -64,7 +64,7 @@ describe('updateDocument Function Tests', () => {
             sinon.stub(docs, 'updateContent').resolves();
             let error;
             try {
-                await document.updateDocument('','','','');
+                await document.updateDocument();
             } catch (err) {
                 error = err;
             }
@@ -81,7 +81,7 @@ describe('updateDocument Function Tests', () => {
 
             let error;
             try {
-                await document.subscribe('', '');
+                await document.subscribe();
             } catch (err) {
                 error = err;
             }
@@ -96,7 +96,7 @@ describe('updateDocument Function Tests', () => {
 
             let error;
             try {
-                await document.subscribe('', '');
+                await document.subscribe();
             } catch (err) {
                 error = err;
             }
@@ -107,16 +107,14 @@ describe('updateDocument Function Tests', () => {
 
     describe('createDocument is implemented correctly', () => {
         it('should create a document if user can create', async () => {
-            const userId = 'userId';
-            const title = 'New Document';
 
-            sinon.stub(userApplicationLayer, 'findUser').resolves({ _id: userId });
+            sinon.stub(userApplicationLayer, 'findUser').resolves();
             sinon.stub(documentRules, 'userCanCreateDocument').returns(true);
             sinon.stub(docs, 'addOne').resolves();
 
             let error;
             try {
-                await document.createDocument(title, userId);
+                await document.createDocument();
             } catch (err) {
                 error = err;
             }
@@ -125,15 +123,13 @@ describe('updateDocument Function Tests', () => {
         });
 
         it('should throw an error if user cannot create a document', async () => {
-            const userId = 'userId';
-            const title = 'New Document';
 
-            sinon.stub(userApplicationLayer, 'findUser').resolves({ _id: userId });
+            sinon.stub(userApplicationLayer, 'findUser').resolves();
             sinon.stub(documentRules, 'userCanCreateDocument').returns(false);
 
             let error;
             try {
-                await document.createDocument(title, userId);
+                await document.createDocument();
             } catch (err) {
                 error = err;
             }
