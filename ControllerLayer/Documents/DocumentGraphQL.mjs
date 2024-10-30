@@ -93,7 +93,7 @@ const updateDocument = {
     async resolve(parent, args, context) {
         try {
             const doc = await document.updateDocument(context.user, args.document, args.title, args.content);
-            const comments = await comments.commentsWithinDocument(args.document);
+            const comments2 = await comments.commentsWithinDocument(args.document);
             pubsub.publish(args.document, {
                 contentSubscription: {
                     Document: {
@@ -101,7 +101,7 @@ const updateDocument = {
                         title: doc.title,
                         content: doc.content,
                         code: doc.code,
-                        comments: comments
+                        comments: comments2
                     },
                     userIdMakingChange: context.user
                 }
