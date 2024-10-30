@@ -53,14 +53,14 @@ const document = {
         return "Invites Sent";
     },
 
-    createDocument: async (title, codeMode, userId) => {
+    createDocument: async (title, code, userId) => {
        const user = await userApplicationLayer.findUser(userId);
        if(!(documentRules.userCanCreateDocument(user))) throw new Error("Cannot create Document");
         const newDocument = {
             title: title,
             users: [userId],
             content: '',
-            codeMode: codeMode,
+            code: code,
         };
         return await docs.addOne(newDocument, user);
     },
