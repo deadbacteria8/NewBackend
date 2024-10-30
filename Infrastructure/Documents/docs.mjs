@@ -8,7 +8,7 @@ const docs = {
     },
 
     addOne: async (docOb,user) => {
-        const document = new DocModule({ title: docOb.title, content:docOb.content, users: docOb.users, codeMode: docOb.code });
+        const document = new DocModule({ title: docOb.title, content:docOb.content, users: docOb.users, code: docOb.code });
         user.documents.push(document._id);
         const session = await mongoose.startSession();
         try {

@@ -100,6 +100,7 @@ const updateDocument = {
                         id: doc.id,
                         title: doc.title,
                         content: doc.content,
+                        code: doc.code,
                         comments: comments
                     },
                     userIdMakingChange: context.user
