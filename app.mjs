@@ -1,6 +1,6 @@
 
 import 'dotenv/config';
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 8080;
 import graphQLWebsocketServer from "./GraphQLWebsocketServer.mjs";
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -19,7 +19,18 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('combined'));
 }
 const corsOptions = {
-    origin: GetFrontendUrl(),
+    origin: (origin, callback) => {
+        const allowedOrigins = [
+            GetFrontendUrl(),
+            'https://www.student.bth.se'
+        ];
+
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,POST,PUT,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Invite-token'],
 };

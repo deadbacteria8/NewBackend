@@ -2,9 +2,10 @@
   "name": "ssr-editor",
   "version": "1.0.0",
   "description": "Starter project for DV1677 JSRamverk",
-  "main": "index.js",
+  "main": "server.mjs",
   "scripts": {
-    "test": "mocha test/*.mjs --timeout 1000ms"
+    "test": "mocha test/*.mjs --timeout 1000ms",
+    "start": "node server.mjs"
   },
   "keywords": [],
   "author": "",
